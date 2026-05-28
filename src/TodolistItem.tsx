@@ -1,13 +1,16 @@
-import {Task} from "./App.tsx";
+import {FilterValues, Task} from "./App.tsx";
 import {Button} from "./Button.tsx";
 
 type Props = {
     title: string
     tasks: Task[]
-    date?: string
+    deleteTask: (id:number)=> void
+    changeFilter:(filter:FilterValues)=> void
 };
 export const TodolistItem = (props: Props) => {
-    const {title, tasks, date} = props
+    const {title, tasks, deleteTask,changeFilter} = props
+
+
     return (
         <div>
             <h3>{title}</h3>
@@ -23,16 +26,16 @@ export const TodolistItem = (props: Props) => {
                         <li key={t.id}>
                             <input type="checkbox" checked={t.isDone}/>
                             <span>{t.title}</span>
+                            <Button onClick={() => deleteTask(t.id)} title={"x"}/>
                         </li>
                     )}
                 </ul>}
             <div>
-                <Button title="All"/>
-                <Button title="Active"/>
-                <Button title="Completed"/>
-
+                <Button onClick={()=>changeFilter("All")} title="All" />
+                <Button onClick={()=>changeFilter("Active")} title="Active" />
+                <Button onClick={()=>changeFilter("Completed")} title="Completed" />
             </div>
-            <div>{date}</div>
+
         </div>
     );
 };
