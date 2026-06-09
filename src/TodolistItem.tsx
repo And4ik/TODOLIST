@@ -1,19 +1,19 @@
-import {FilterValues, Task} from "./App.tsx";
+import {FilterValues, Task, Todolist} from "./App.tsx";
 import {Button} from "./Button.tsx";
 import {type ChangeEvent, type KeyboardEvent, useState} from "react";
 import './App.css'
 
 type Props = {
-    title: string
+    todolist: Todolist
     tasks: Task[]
-    deleteTask: (id:string)=> void
-    changeFilter:(filter:FilterValues)=> void
-    createTask: (title:string) => void
-    changeTaskStatus: (id:string, isDone:boolean) => void
-    filter: FilterValues
+    deleteTask: (todolistId: string, id:string)=> void
+    changeFilter:(todolistId: string, filter:FilterValues)=> void
+    createTask: (todolistId: string, title:string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone:boolean) => void
+    deleteTodolist: (todolistId: string) => void
 };
 export const TodolistItem = (props: Props) => {
-    const {title, tasks, deleteTask,changeFilter,createTask,changeTaskStatus,filter} = props
+    const {todolist: {todolistId, title, filter}, tasks, deleteTask,changeFilter,createTask,changeTaskStatus,deleteTodolist} = props
 
     const [taskTitle, setTaskTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export const TodolistItem = (props: Props) => {
     const createTaskHandler = () => {
         const trimmedTitle = taskTitle.trim()
         if (trimmedTitle !== "") {
-            createTask(trimmedTitle)
+            createTask(todolistId, trimmedTitle)
             setTaskTitle("")
 
         } else {
@@ -38,9 +38,19 @@ export const TodolistItem = (props: Props) => {
             createTaskHandler()
         }
     }
+    const changeFilterHandler = (filter: FilterValues) => {
+      changeFilter(todolistId, filter)
+    }
+    const deleteTodolistHandler = () => {
+        deleteTodolist(todolistId)
+    }
     return (
         <div>
-            <h3>{title}</h3>
+            <div className={"container"}>
+                <h3>{title}</h3>
+                <Button title={"del"} onClick={deleteTodolistHandler}/>
+            </div>
+
             <div>
                 <input
                     className={error ? "error" : ""}
@@ -57,13 +67,13 @@ export const TodolistItem = (props: Props) => {
                 : <ul>
                     {tasks.map((t)=>{
                         const deleteTaskHandler = () => {
-                            deleteTask(t.id)
+                            deleteTask(todolistId, t.id)
                         }
                         return (
                             <li className={t.isDone ? "is-done" :""} key={t.id}>
                                 <input type="checkbox"
                                        checked={t.isDone}
-                                       onChange={(e)=>changeTaskStatus(t.id, e.currentTarget.checked)}
+                                       onChange={(e)=>changeTaskStatus(todolistId,t.id, e.currentTarget.checked)}
                                 />
                                 <span>{t.title}</span>
                                 <Button onClick={deleteTaskHandler} title={"x"}/>
@@ -72,9 +82,9 @@ export const TodolistItem = (props: Props) => {
                     })}
                 </ul>}
             <div>
-                <Button className={filter === "All" ? "active-filter": ""} onClick={()=>changeFilter("All")} title="All" />
-                <Button className={filter === "Active" ? "active-filter": ""} onClick={()=>changeFilter("Active")} title="Active" />
-                <Button className={filter === "Completed" ? "active-filter": ""} onClick={()=>changeFilter("Completed")} title="Completed" />
+                <Button className={filter === "All" ? "active-filter": ""} onClick={()=>changeFilterHandler("All")} title="All" />
+                <Button className={filter === "Active" ? "active-filter": ""} onClick={()=>changeFilterHandler("Active")} title="Active" />
+                <Button className={filter === "Completed" ? "active-filter": ""} onClick={()=>changeFilterHandler("Completed")} title="Completed" />
             </div>
 
         </div>
