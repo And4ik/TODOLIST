@@ -1,24 +1,9 @@
 .app {
-  padding: 30px;
   display: flex;
+  flex-direction: column;
+  width: 100vw;
 }
 
-.app > div {
-  margin-right: 50px;
-}
-
-.error {
-  border: red 1px solid;
-}
-
-.error-message {
-  color: red;
-}
-
-
-.active-filter {
-  background-color: lightgreen;
-}
 
 .is-done {
   opacity: 0.5;
@@ -28,4 +13,11 @@
 .container {
   display: flex;
   align-items: center;
+}
+
+.todolistItem {
+  background-color: #e3e3df;
+  border: 3px solid #a4a4a2;
+  border-radius: 20px 20px 20px 20px;
+  padding: 10px;
 }

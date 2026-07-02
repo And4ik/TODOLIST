@@ -1,5 +1,6 @@
-import {Button} from "./Button.tsx";
 import {type ChangeEvent, type KeyboardEvent, useState} from "react";
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField';
 
 
 type Props = {
@@ -31,14 +32,19 @@ export const CreateItemForm = ({onCreateItem}: Props) => {
     }
     return (
         <div>
-            <input
-                className={error ? "error" : ""}
+            <TextField
+                label={'Enter a title'}
+                variant="outlined"
                 value={taskTitle}
+                size={"small"}
+                error={!!error}
+                helperText={error}
                 onChange={changeTaskTitleHandler}
                 onKeyDown={createTaskOnEnterHandler}
             />
-            <Button onClick={createTaskHandler} title={"+"}/>
-            {error ? <div className={"error-message"}>{error}</div> : ""}
+            <Button variant="contained"
+                    sx={{minWidth: 40, width: 40, height: 40}}
+                    onClick={createTaskHandler}>+</Button>
         </div>
     );
 };
