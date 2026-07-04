@@ -9,7 +9,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Checkbox from "@mui/material/Checkbox";
-
+import Box from '@mui/material/Box'
+import {containerSx, getListItemSx} from "./TodolistItem.styles.ts";
 
 type Props = {
     todolist: Todolist
@@ -63,9 +64,12 @@ export const TodolistItem = (props: Props) => {
                             changeTaskTitle(todolistId, t.id, title)
                         }
                         return (
-                            <ListItem className={t.isDone ? "is-done" : ""} key={t.id}>
-                                <Checkbox checked={t.isDone} onChange={changeTaskStatusHandler}/>
-                                <EditableSpan value={t.title} onChange={changeTaskTitleHandler}/>
+                            <ListItem sx={getListItemSx(t.isDone)} key={t.id}>
+                                <div>
+                                    <Checkbox checked={t.isDone} onChange={changeTaskStatusHandler}/>
+                                    <EditableSpan value={t.title} onChange={changeTaskTitleHandler}/>
+                                </div>
+
                                 <IconButton onClick={deleteTaskHandler}>
                                     <DeleteIcon/>
                                 </IconButton>
@@ -73,7 +77,7 @@ export const TodolistItem = (props: Props) => {
                         )
                     })}
                 </List>}
-            <div>
+            <Box sx={containerSx}>
                 <Button variant={filter === 'All' ? 'contained' : 'text'}
                         color={'primary'}
                         onClick={() => changeFilterHandler('All')}>All</Button>
@@ -83,7 +87,7 @@ export const TodolistItem = (props: Props) => {
                 <Button variant={filter === 'Completed' ? 'contained' : 'text'}
                         color={'primary'}
                         onClick={() => changeFilterHandler('Completed')}>Completed</Button>
-            </div>
+            </Box>
         </div>
     );
 };
