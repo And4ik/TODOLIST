@@ -43,9 +43,6 @@ export const CreateItemForm = ({onCreateItem}: Props) => {
                 onChange={changeTaskTitleHandler}
                 onKeyDown={createTaskOnEnterHandler}
             />
-            {/*<Button variant="contained"*/}
-            {/*        sx={{minWidth: 40, width: 40, height: 40}}*/}
-            {/*        onClick={createTaskHandler}>+</Button>*/}
             <IconButton onClick={createTaskHandler} color={'primary'}>
                 <AddBoxIcon />
             </IconButton>

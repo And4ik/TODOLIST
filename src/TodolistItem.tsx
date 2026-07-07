@@ -16,7 +16,8 @@ type Props = {
     todolist: Todolist
     tasks: Task[]
     deleteTask: (todolistId: string, id: string) => void
-    changeFilter: (todolistId: string, filter: FilterValues) => void
+    changeTodolistFilter: (payload: {todolistId: string,filter:FilterValues}) => void
+    changeTodolistTitle: (payload: {todolistId: string,title: string}) => void
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     deleteTodolist: (todolistId: string) => void
@@ -27,23 +28,30 @@ export const TodolistItem = (props: Props) => {
         todolist: {todolistId, title, filter},
         tasks,
         deleteTask,
-        changeFilter,
+        changeTodolistFilter,
         createTask,
         changeTaskStatus,
         deleteTodolist,
-        changeTaskTitle
+        changeTaskTitle,
+        changeTodolistTitle
     } = props
 
     const changeFilterHandler = (filter: FilterValues) => {
-        changeFilter(todolistId, filter)
+        changeTodolistFilter({todolistId, filter})
     }
     const deleteTodolistHandler = () => {
         deleteTodolist(todolistId)
     }
+    const changeTodolistTitleHandler = (title: string) => {
+        changeTodolistTitle({todolistId, title})
+    }
     return (
         <div className={"todolistItem"}>
             <div className={"container"}>
-                <h3>{title}</h3>
+                {/*<h3>{title}</h3>*/}
+                <h3>
+                    <EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
+                </h3>
                 {/*<Button title={"del"} onClick={deleteTodolistHandler}/>*/}
                 <IconButton onClick={deleteTodolistHandler}>
                     <DeleteIcon/>
