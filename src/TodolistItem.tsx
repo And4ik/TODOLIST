@@ -15,13 +15,13 @@ import {containerSx, getListItemSx} from "./TodolistItem.styles.ts";
 type Props = {
     todolist: Todolist
     tasks: Task[]
-    deleteTask: (todolistId: string, id: string) => void
+    deleteTask: (payload: {todolistId: string, taskId: string}) => void
     changeTodolistFilter: (payload: {todolistId: string,filter:FilterValues}) => void
     changeTodolistTitle: (payload: {todolistId: string,title: string}) => void
-    createTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    createTask: (payload: {todolistId: string, title: string}) => void
+    changeTaskStatus: (payload: {todolistId: string, taskId: string, isDone: boolean}) => void
     deleteTodolist: (todolistId: string) => void
-    changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
+    changeTaskTitle: (payload: {todolistId: string, taskId: string, title: string}) => void
 };
 export const TodolistItem = (props: Props) => {
     const {
@@ -57,19 +57,19 @@ export const TodolistItem = (props: Props) => {
                     <DeleteIcon/>
                 </IconButton>
             </div>
-            <CreateItemForm onCreateItem={(title) => createTask(todolistId, title)}/>
+            <CreateItemForm onCreateItem={(title) => createTask({todolistId, title})}/>
             {tasks.length === 0
                 ? <span> No tasks </span>
                 : <List>
                     {tasks.map((t) => {
                         const deleteTaskHandler = () => {
-                            deleteTask(todolistId, t.id)
+                            deleteTask({todolistId, taskId:t.id})
                         }
                         const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
+                            changeTaskStatus({todolistId, taskId:t.id, isDone:e.currentTarget.checked})
                         }
                         const changeTaskTitleHandler = (title: string) => {
-                            changeTaskTitle(todolistId, t.id, title)
+                            changeTaskTitle({todolistId, taskId:t.id, title})
                         }
                         return (
                             <ListItem sx={getListItemSx(t.isDone)} key={t.id}>
