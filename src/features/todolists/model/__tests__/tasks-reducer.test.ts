@@ -8,8 +8,8 @@ import {
     createTaskAC,
     deleteTaskAC,
     tasksReducer
-} from "@/model/tasks-reducer.ts";
-import {createTodolistAC, deleteTodolistAC} from "@/model/todolists-reducer.ts";
+} from "@/features/todolists/model/tasks-reducer.ts";
+import {createTodolistAC, deleteTodolistAC} from "@/features/todolists/model/todolists-reducer.ts";
 
 
 let startState: TasksState = {}

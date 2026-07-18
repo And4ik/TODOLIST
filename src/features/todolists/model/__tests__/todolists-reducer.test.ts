@@ -7,7 +7,7 @@ import {
     createTodolistAC,
     deleteTodolistAC,
     todolistsReducer
-} from "@/model/todolists-reducer.ts";
+} from "@/features/todolists/model/todolists-reducer.ts";
 import {Todolist} from "@/app/App.tsx";
 
 let todolistId1: string
