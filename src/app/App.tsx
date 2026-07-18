@@ -1,36 +1,26 @@
 import './App.css'
-import {TodolistItem} from "../TodolistItem.tsx";
-import {useState} from "react";
-import {CreateItemForm} from "../CreateItemForm.tsx";
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
-import {containerSx} from "../TodolistItem.styles.ts";
-import {NavButton} from "../NavButton.ts";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import Switch from '@mui/material/Switch'
-import CssBaseline from '@mui/material/CssBaseline'
+import {changeThemeModeAC} from "@/app/app-reducer.ts";
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {selectTodolists} from "@/model/todolists-selectors.ts";
+import {selectTasks} from "@/model/tasks-selectors.ts";
+import {selectThemeMode} from "@/app/app-selectors.ts";
+import {getTheme} from "@/common/theme/theme.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    createTodolistAC, deleteTodolistAC,
-} from "../model/todolists-reducer.ts";
-import {
-    changeTaskStatusAC,
-    changeTaskTitleAC,
-    createTaskAC,
-    deleteTaskAC,
-} from "../model/tasks-reducer.ts";
-import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
-import {useAppSelector} from "../common/hooks/useAppSelector.ts";
-import {selectTodolists} from "../model/todolists-selectors.ts";
-import {selectTasks} from "../model/tasks-selectors.ts";
-
-type ThemeMode = 'dark' | 'light'
-
+    createTodolistAC,
+    deleteTodolistAC
+} from "@/model/todolists-reducer.ts";
+import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
+import {ThemeProvider} from "@mui/material/styles";
+import {AppBar, Container, CssBaseline, Grid, Switch, Toolbar} from "@mui/material";
+import {containerSx} from "@/TodolistItem.styles.ts";
+import IconButton from "@mui/material/IconButton";
+import {NavButton} from "@/NavButton.ts";
+import MenuIcon from '@mui/icons-material/Menu'
+import {CreateItemForm} from "@/CreateItemForm.tsx";
+import {TodolistItem} from "@/TodolistItem.tsx";
 
 export type Task = {
     id: string
@@ -55,20 +45,14 @@ export const App = ()=> {
 
     const todolists = useAppSelector(selectTodolists)
     const tasks = useAppSelector(selectTasks)
+    const themeMode = useAppSelector(selectThemeMode)
+    const theme = getTheme(themeMode)
+
     const dispatch = useAppDispatch()
 
-    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
-    const theme = createTheme({
-        palette: {
-            mode: themeMode,
-            primary: {
-                main: '#d9cdb4',
-            },
-        },
-    })
     const changeMode = () => {
-        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+        dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
 
     const createTodolist = (title:string) => {

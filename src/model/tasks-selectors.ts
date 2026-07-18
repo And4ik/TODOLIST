@@ -1,4 +1,5 @@
-import type { TasksState } from '../app/App'
-import type { RootState } from '../app/store'
+import {RootState} from "@/app/store.ts";
+import {TasksState} from "@/app/App.tsx";
+
 
 export const selectTasks = (state: RootState): TasksState => state.tasks
