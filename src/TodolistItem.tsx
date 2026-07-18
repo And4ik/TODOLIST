@@ -1,5 +1,5 @@
-import {FilterValues, Task, Todolist} from "./App.tsx";
-import './App.css'
+import {FilterValues, Task, Todolist} from "./app/App.tsx";
+import './app/App.css'
 import {CreateItemForm} from "./CreateItemForm.tsx";
 import {EditableSpan} from "./EditableSpan.tsx";
 import {ChangeEvent} from "react";
@@ -52,7 +52,6 @@ export const TodolistItem = (props: Props) => {
                 <h3>
                     <EditableSpan value={title} onChange={changeTodolistTitleHandler}/>
                 </h3>
-                {/*<Button title={"del"} onClick={deleteTodolistHandler}/>*/}
                 <IconButton onClick={deleteTodolistHandler}>
                     <DeleteIcon/>
                 </IconButton>
