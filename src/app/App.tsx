@@ -25,8 +25,13 @@ export type TasksState = {
 
 
 
+
 export type FilterValues = "All" | "Completed" | "Active"
+
 export const App = ()=> {
+
+
+
 
     const themeMode = useAppSelector(selectThemeMode)
     const theme = getTheme(themeMode)
