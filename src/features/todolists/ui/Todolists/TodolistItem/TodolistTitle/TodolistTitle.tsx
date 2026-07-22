@@ -1,31 +1,31 @@
-import {EditableSpan} from "@/common/components/EditableSpan/EditableSpan.tsx";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import {changeTodolistTitleAC, deleteTodolistAC} from "@/features/todolists/model/todolists-reducer.ts";
-import {Todolist} from "@/app/App.tsx";
-import styles from './TodolistTitle.module.css'
-import {useAppDispatch} from "@/common/hooks";
+import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan.tsx"
+import DeleteIcon from "@mui/icons-material/Delete"
+import IconButton from "@mui/material/IconButton"
+import { changeTodolistTitleAC, deleteTodolistAC } from "@/features/todolists/model/todolists-reducer.ts"
+import { Todolist } from "@/app/App.tsx"
+import styles from "./TodolistTitle.module.css"
+import { useAppDispatch } from "@/common/hooks"
 
 type Props = {
-    todolist: Todolist
+  todolist: Todolist
 }
-export const TodolistTitle = ({todolist}:Props) => {
-    const {todolistId,title} = todolist
-    const dispatch = useAppDispatch()
-    const deleteTodolist = () => {
-        dispatch(deleteTodolistAC({todolistId}))
-    }
-    const changeTodolistTitle = (title: string) => {
-        dispatch(changeTodolistTitleAC({todolistId,title}))
-    }
-    return (
-        <div className={styles.container}>
-            <h3>
-                <EditableSpan value={title} onChange={changeTodolistTitle}/>
-            </h3>
-            <IconButton onClick={deleteTodolist}>
-                <DeleteIcon/>
-            </IconButton>
-        </div>
-    );
-};
+export const TodolistTitle = ({ todolist }: Props) => {
+  const { todolistId, title } = todolist
+  const dispatch = useAppDispatch()
+  const deleteTodolist = () => {
+    dispatch(deleteTodolistAC({ todolistId }))
+  }
+  const changeTodolistTitle = (title: string) => {
+    dispatch(changeTodolistTitleAC({ todolistId, title }))
+  }
+  return (
+    <div className={styles.container}>
+      <h3>
+        <EditableSpan value={title} onChange={changeTodolistTitle} />
+      </h3>
+      <IconButton onClick={deleteTodolist}>
+        <DeleteIcon />
+      </IconButton>
+    </div>
+  )
+}
