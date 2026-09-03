@@ -1,22 +1,22 @@
-import { Todolist } from "@/app/App.tsx"
 import "../../../../../app/App.css"
-import { createTaskAC } from "@/features/todolists/model/tasks-reducer.ts"
+import { createTaskAC } from "@/features/todolists/model/tasks-slice.ts"
 import { TodolistTitle } from "@/features/todolists/ui/Todolists/TodolistItem/TodolistTitle/TodolistTitle.tsx"
 import { Tasks } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx"
 import { FilterButtons } from "@/features/todolists/ui/Todolists/TodolistItem/FilterButtons/FilterButtons.tsx"
 import { CreateItemForm } from "@/common/components"
 import { useAppDispatch } from "@/common/hooks"
+import { DomainTodolist } from "@/features/todolists/model/todolists-slice.ts"
 
 type Props = {
-  todolist: Todolist
+  todolist: DomainTodolist
 }
 export const TodolistItem = ({ todolist }: Props) => {
-  const { todolistId } = todolist
+  const { id } = todolist
 
   const dispatch = useAppDispatch()
 
   const createTask = (title: string) => {
-    dispatch(createTaskAC({ todolistId, title }))
+    dispatch(createTaskAC({ id, title }))
   }
   return (
     <div className={"todolistItem"}>

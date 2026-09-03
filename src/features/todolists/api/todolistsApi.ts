@@ -9,11 +9,11 @@ export const todolistsApi = {
   createTodolist(title: string) {
     return instance.post<BaseResponse<{ item: Todolist }>>("/todo-lists", { title })
   },
-  deleteTodolist(todolistId: string) {
-    return instance.delete<BaseResponse>(`/todo-lists/${todolistId}`)
+  deleteTodolist(id: string) {
+    return instance.delete<BaseResponse>(`/todo-lists/${id}`)
   },
-  changeTodolistTitle(payload: { todolistId: string; title: string }) {
-    const { todolistId, title } = payload
-    return instance.put<BaseResponse>(`/todo-lists/${todolistId}`, { title })
+  changeTodolistTitle(payload: { id: string; title: string }) {
+    const { id, title } = payload
+    return instance.put<BaseResponse>(`/todo-lists/${id}`, { title })
   },
 }

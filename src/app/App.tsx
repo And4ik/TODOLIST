@@ -5,18 +5,12 @@ import { Header } from "@/common/components/Header/Header.tsx"
 import { Main } from "@/app/Main.tsx"
 import { getTheme } from "@/common/theme/theme.ts"
 import { useAppSelector } from "@/common/hooks/useAppSelector.ts"
-import { selectThemeMode } from "@/app/app-selectors.ts"
+import { selectThemeMode } from "@/app/app-slice.ts"
 
 export type Task = {
   id: string
   title: string
   isDone: boolean
-}
-
-export type Todolist = {
-  todolistId: string
-  title: string
-  filter: FilterValues
 }
 
 export type TasksState = {
