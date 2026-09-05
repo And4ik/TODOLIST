@@ -1,5 +1,5 @@
 import "../../../../../app/App.css"
-import { createTaskAC } from "@/features/todolists/model/tasks-slice.ts"
+import { createTaskTC } from "@/features/todolists/model/tasks-slice.ts"
 import { TodolistTitle } from "@/features/todolists/ui/Todolists/TodolistItem/TodolistTitle/TodolistTitle.tsx"
 import { Tasks } from "@/features/todolists/ui/Todolists/TodolistItem/Tasks/Tasks.tsx"
 import { FilterButtons } from "@/features/todolists/ui/Todolists/TodolistItem/FilterButtons/FilterButtons.tsx"
@@ -16,7 +16,7 @@ export const TodolistItem = ({ todolist }: Props) => {
   const dispatch = useAppDispatch()
 
   const createTask = (title: string) => {
-    dispatch(createTaskAC({ id, title }))
+    dispatch(createTaskTC({ todolistId: id, title }))
   }
   return (
     <div className={"todolistItem"}>

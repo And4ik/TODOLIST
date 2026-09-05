@@ -7,16 +7,6 @@ import { getTheme } from "@/common/theme/theme.ts"
 import { useAppSelector } from "@/common/hooks/useAppSelector.ts"
 import { selectThemeMode } from "@/app/app-slice.ts"
 
-export type Task = {
-  id: string
-  title: string
-  isDone: boolean
-}
-
-export type TasksState = {
-  [key: string]: Task[]
-}
-
 export type FilterValues = "All" | "Completed" | "Active"
 
 export const App = () => {
