@@ -77,6 +77,7 @@ export const tasksSlice = createAppSlice({
     changeTaskStatusTC: create.asyncThunk(
       async (task: DomainTask, { dispatch, rejectWithValue }) => {
         try {
+          debugger
           const model: UpdateTaskModel = {
             description: task.description,
             title: task.title,
@@ -89,6 +90,7 @@ export const tasksSlice = createAppSlice({
           const res = await tasksApi.updateTask({ todolistId: task.todoListId, taskId: task.id, model })
           dispatch(changeStatusAC({ status: "succeeded" }))
           return { task: res.data.data.item }
+
         } catch (error) {
           dispatch(changeStatusAC({ status: "failed" }))
           return rejectWithValue(null)

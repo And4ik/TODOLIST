@@ -8,7 +8,6 @@ export type GetTasksResponse = {
 export type DomainTask = {
   description: string
   title: string
-  completed: boolean
   status: TaskStatus
   priority: TaskPriority
   startDate: string
